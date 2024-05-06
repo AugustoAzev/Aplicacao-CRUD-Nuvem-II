@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar | Google</title>
+    <link rel="icon" href="/imagens/icones/perfil.png">
+    <link rel="stylesheet" href="/estilos/cadastrar.css">
+
+    <!-- Import the Firebase SDK with the non-modular version -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <!--conexão-->
+    <script src="/conexao/firebase.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/telas/telas_cliente/inicio.html">Inicio</a></li>
+            <li><a href="/telas/telas_cliente/vitrine.html">Vitrine</a></li>
+            <li style="float:right"><a class="active" href="/telas/telas_administrador/central.html">Central de Administração</a></li>
+        </ul> 
+    </nav>
+    <header>
+        <h2>Registro de conta <img src="/imagens/icones/capacete.png" alt="capacete"></h2>
+    </header> 
+
+    <div class="container">
+        <h1>Continue com o Firebase</h1>
+        <button id="loginBtn">Google Firebase</button>
+    </div>
+
+    
+    <script>
+        const auth = firebase.auth();
+
+        //adiciona a sunção logi ao button
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            //abre a janelinha de login
+            auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+                .then((result) => {
+                    //sucesso
+                    console.log('User authenticated:', result.user);
+                    //redirecionamento
+                    window.location.href = "inicio.html";
+                })
+                .catch((error) => {
+                    //fracasso
+                    console.error('Authentication error:', error);
+                });
+        });
+
+        // Function to handle user registration
+        function registerUser() {
+            const email = "example@example.com"; // Replace with user's email
+            const password = "password123"; // Replace with user's desired password
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed up successfully
+                    const user = userCredential.user;
+                    console.log("User registered:", user);
+                    // Redirect to the homepage after successful registration
+                    window.location.href = "inicio.html"; // Change 'homepage.html' to the actual homepage URL
+                })
+                .catch((error) => {
+                    // Handle errors
+                    console.error('Registration error:', error);
+                });
+        }
+    </script>
+</body>
+</html>

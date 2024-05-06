@@ -1,0 +1,60 @@
+body {
+    background-color: #131313;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+header {
+    text-align: center;
+    background-color: #131313;
+    padding: 30PX;
+}
+header h1 {
+    font-size: 30px;
+    font-weight: 700;
+}
+header img {
+    height: 60px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 253, 253, 0.3);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="email"] {
+    width: 48%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ccc;
+}
+.opcoes {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.opcoes a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #137e18;
+    transition: background-color 0.3s ease;
+}
+.opcoes a:hover {
+    background-color: #035107;
+}

@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    background-color: #131313;
+}
+/*Navegação*/
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 10px;
+  }
+  nav li {
+    float: left;
+  }
+  nav li a {
+    cursor: pointer;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  nav li a:hover {
+    background-color: #fff;
+    border-radius: 4px;
+    color: #131313;
+  }
+h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #fff;
+}
+img {
+    height: 60px;
+}
+.tela-exibicao {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(229, 217, 217, 0.3);
+}
+#tabelaResultados {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+#tabelaResultados th,
+#tabelaResultados td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+#tabelaResultados th {
+    background-color: rgba(197, 177, 177, 0.3);
+    font-weight: bold;
+    text-align: left;
+}
+
+/*Estilos para o botão*/
+#exibirRegistrosBtn {
+    padding: 10px 20px;
+    background-color: #cb4f07;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#exibirRegistrosBtn:hover {
+    background-color: #873b09;
+}
+/* Estilos alternados para linhas */
+#tabelaResultados tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+/*Botões de ação*/
+td .btn-acao-editar{
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(13, 116, 13);
+}
+td .btn-acao-excluir{
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(143, 21, 21);
+}
+td .btn-acao-editar:hover{
+    background-color: rgb(2, 75, 2);
+}
+td .btn-acao-excluir:hover{
+    background-color: rgb(115, 11, 11)
+}
+.btn-salvar-editar{
+    padding: 10px 20px;
+    background-color: #137e18;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-salvar-editar:hover{
+    background-color: #035107;
+}

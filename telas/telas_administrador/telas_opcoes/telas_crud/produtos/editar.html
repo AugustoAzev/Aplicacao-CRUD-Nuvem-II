@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto | Online</title>
+    <link rel="icon" href="/imagens/icones/editar.png">
+    <link rel="stylesheet" href="/estilos/estilos_crud/editar/colaborador_produtos.css">
+
+    <!--SDKs necessarios p pagina-->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <!--conexão-->
+    <script src="/conexao/firebase.js"></script>
+</head>
+<body>
+    <header>
+        <h2>Editar Cadastro <img src="/imagens/icones/capacete.png" alt="logo da empresa"></h2>
+    </header>
+
+    <div class="formulario-edicao">
+        <form id="formEdicao">
+            <label for="nome">Nome do produto:</label>
+            <input type="text" id="nome" name="nome" required><br>
+
+            <label for="preco">Preço do produto:</label>
+            <input type="text" id="preco" name="preco" required><br>
+
+            <label for="quantidade">Quantidade em estoque:</label>
+            <input type="text" id="quantidade" name="quantidade" required><br>
+
+            <label for="promocao">Promoção (opcional):</label>
+            <input type="text" id="promocao" name="promocao"><br>
+
+            <label for="imagem">Imagem:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*"><br>
+
+            <button class="btn-salvar-editar" type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+    
+    <script>
+        // Obtenha o ID do registro a ser editado da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const registroId = urlParams.get('id');
+
+        // Obtenha uma referência para o formulário de edição
+        const formEdicao = document.getElementById('formEdicao');
+
+        // Preencha o formulário com os dados do registro a ser editado
+        db.collection("produtos").doc(registroId).get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                formEdicao.nome.value = data.nome;
+                formEdicao.preco.value = data.preco;
+                formEdicao.quantidade.value = data.quantidade;
+                formEdicao.promocao.value = data.promocao;
+            } else {
+                console.log("Nenhum documento encontrado!");
+            } 
+        }).catch((error) => {
+            console.log("Erro ao obter documento:", error);
+        });
+
+        // Adicione um ouvinte de evento de envio ao formulário
+        formEdicao.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evita que o formulário seja enviado de forma tradicional
+
+            // Obtenha os dados do formulário
+            const nome = formEdicao.nome.value;
+            const preco = formEdicao.preco.value;
+            const quantidade = formEdicao.quantidade.value;
+            const promocao = formEdicao.promocao.value;
+            const imagemFile = formEdicao.imagem.files[0]; // Nova imagem
+
+            // Se houver uma nova imagem, faça o upload dela para o Firestore Storage
+            if (imagemFile) {
+                const storageRef = storage.ref();
+                const imagemRef = storageRef.child(`produtos/${imagemFile.name}`);
+                await imagemRef.put(imagemFile);
+                const imagemURL = await imagemRef.getDownloadURL();
+
+                // Atualize os dados do registro no Firestore
+                db.collection("produtos").doc(registroId).update({
+                    nome: nome,
+                    preco: preco,
+                    quantidade: quantidade,
+                    promocao: promocao,
+                    imagemUrl: imagemURL // Use a nova URL da imagem
+                })
+                .then(() => {
+                    console.log("Produto atualizado com sucesso!");
+                    // Redirecione o usuário de volta à página de visualização após a atualização
+                    window.location.href = "visualizar.html";
+                })
+                .catch((error) => {
+                    console.error("Erro ao atualizar produto: ", error);
+                });
+            } else {
+                // Se não houver nova imagem, apenas atualize os outros dados do produto
+                db.collection("produtos").doc(registroId).update({
+                    nome: nome,
+                    preco: preco,
+                    quantidade: quantidade,
+                    promocao: promocao,
+                })
+                .then(() => {
+                    console.log("Produto atualizado com sucesso!");
+                    // Redirecione o usuário de volta à página de visualização após a atualização
+                    window.location.href = "visualizar.html";
+                })
+                .catch((error) => {
+                    console.error("Erro ao atualizar produto: ", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

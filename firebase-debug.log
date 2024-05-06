@@ -1,0 +1,21 @@
+[debug] [2024-03-01T02:19:56.509Z] ----------------------------------------------------------------------
+[debug] [2024-03-01T02:19:56.511Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bruno\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-03-01T02:19:56.511Z] CLI Version:   13.4.0
+[debug] [2024-03-01T02:19:56.512Z] Platform:      win32
+[debug] [2024-03-01T02:19:56.512Z] Node Version:  v20.11.0
+[debug] [2024-03-01T02:19:56.512Z] Time:          Thu Feb 29 2024 22:19:56 GMT-0400 (Horário Padrão do Amazonas)
+[debug] [2024-03-01T02:19:56.512Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-01T02:19:56.517Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-01T02:19:56.517Z] > authorizing via signed-in user (bruno.amaro.gb@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\bruno\Documents\e-Comerce
+

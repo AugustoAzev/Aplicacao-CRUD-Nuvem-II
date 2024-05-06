@@ -1,0 +1,77 @@
+/* Estilos para o corpo */
+body {
+    background-color: #131313;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* Coloca os elementos em coluna */
+    height: 100vh;
+    /* Altura total da viewport */
+}
+/* Estilos para o header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* Estilos para o contêiner principal */
+.container {
+    color: #131313;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    /* Centraliza verticalmente os elementos */
+    border-radius: 10px;
+}
+/* Estilos para o formulário */
+form {
+    height: auto;
+    width: 300px;
+    padding: 6px;
+    /* Largura do formulário */
+    margin-right: 20px;
+    /* Espaçamento entre o formulário e a imagem */
+}
+/* Estilos para os inputs */
+/* Estilos para os inputs */
+form input, select, textarea {
+    width: calc(100% - 20px); /* Subtrai 20px da largura para compensar a margem do formulário */
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+}
+/* Estilos para os labels */
+form label, select, textarea {
+    margin-bottom: 5px;
+    margin-right: 10px; /* Espaço entre o label e o input do lado esquerdo */
+}
+/* Estilos para a imagem */
+img {
+    height: 70px; 
+    max-width: 100%;
+    /* Garante que a imagem não ultrapasse o contêiner */
+}
+/* Estilos para o logo */
+.logo {
+    height: 430px;
+    border-radius: 10px;
+    vertical-align: middle;
+    /* Alinha verticalmente o logo com o texto */
+}
+button{
+    background-color: #0da11c;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #0c5913;
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro | Produto</title>
+<link rel="icon" href="/imagens/icones/add.png">
+<link rel="stylesheet" href="/estilos/estilos_crud/produto/add_produto.css">
+
+<!--SDKs necessarios p pagina-->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+<!--conexão-->
+<script src="/conexao/firebase.js"></script>
+
+</head>
+<body>
+  <nav>
+    <ul>
+        <li><a href="/telas/telas_cliente/inicio.html">Inicio</a></li>
+        <li style="float:right"><a class="active" href="/telas/telas_administrador/central.html">Central de Administração</a></li>
+    </ul> 
+</nav>
+    <header>
+        <h2>Cadastro Produto<img src="/imagens/icones/capacete.png" alt="logo da empresa"></h2>
+    </header>
+
+<div class="container">
+  <form id="cadastroForm">
+    <div class="form-group">
+      <label for="nome">Nome do produto:</label>
+      <input type="text" id="nome" name="nome" placeholder="Ex: Regua 30cm" required>
+    </div>
+    <div class="form-group">
+      <label for="preco">Preço do produto:</label>
+      <input type="text" id="preco" name="preco" placeholder="Ex: R$ 7,00" required>
+    </div>
+    <div class="form-group">
+      <label for="quantidade">Quantidade em estoque:</label>
+      <input type="text" id="quantidade" name="quantidade" placeholder="Ex: 30" required>
+    </div>
+    <div class="form-group">
+      <label for="promocao">Promoção (opcional):</label>
+      <input type="text" id="promocao" name="promocao" placeholder="Ex: R$ 5,00">
+    </div>
+    <div class="form-group">
+      <label for="imagem">Imagem do produto:</label>
+      <input type="file" id="imagem" name="imagem" accept="image/*">
+    </div>
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<!-- Modal -->
+<div id="meuModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Produto cadastrado com sucesso!</p>
+    <button id="clearFormBtn">Concluir e postar</button>
+  </div>
+</div>
+
+<script>
+  // Capturando o formulário
+  const form = document.getElementById('cadastroForm');
+
+  // Capturando o modal e o botão de fechar e limpar
+  const modal = document.getElementById('meuModal');
+  const closeBtn = document.querySelector('.close');
+  const clearFormBtn = document.getElementById('clearFormBtn');
+
+  // Adicionando um listener para o evento de submit do formulário
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Evita o comportamento padrão do formulário
+
+    // Capturando os valores dos campos do formulário
+    const nome = form['nome'].value;
+    const preco = form['preco'].value;
+    const quantidade = form['quantidade'].value;
+    const promocao = form['promocao'].value;
+    const imagem = form['imagem'].files[0]; // Alterado para capturar o arquivo de imagem
+
+    // Referência para o local onde a imagem será armazenada no Firebase Storage
+    const storageRef = storage.ref().child('produtos/' + imagem.name);
+
+    // Fazendo o upload da imagem para o Firebase Storage
+    storageRef.put(imagem)
+    .then(function(snapshot) {
+      // Obtendo a URL da imagem
+      return snapshot.ref.getDownloadURL();
+    })
+    .then(function(url) {
+      //enviando os dados para o Firestore
+      return db.collection('produtos').add({
+        nome: nome,
+        preco: preco,
+        quantidade: quantidade,
+        promocao: promocao,
+        imagemUrl: url // salvando url da imagem
+      });
+    })
+    .then(function(docRef) {
+      console.log("Documento adicionado com ID: ", docRef.id);
+      //exibe modal
+      modal.style.display = "block";
+      //limpa formulario
+      form.reset();
+    })
+    .catch(function(error) {
+      console.error("Erro ao adicionar documento: ", error);
+    });
+  });
+
+  //add um listener para o botão de fechar
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = "none";
+  });
+
+  //add um listener para o botão de fechar e limpar
+  clearFormBtn.addEventListener('click', function() {
+    modal.style.display = "none";
+    form.reset();
+  });
+</script>
+
+</body>
+</html>

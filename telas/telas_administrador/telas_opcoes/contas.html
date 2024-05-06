@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contas | Online</title>
+  <link rel="icon" href="/imagens/icones/visualizar.png">
+  <link rel="stylesheet" href="/estilos/contas.css">
+
+  <!--SDKs necessarios p pagina-->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <!-- baixa o auth para funcionar a chamada -->
+  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <!--conexão-->
+  <script src="/conexao/firebase.js"></script>
+</head>
+
+<body>
+  <nav>
+    <ul>
+        <li><a href="/telas/telas_cliente/inicio.html">Inicio</a></li>
+        <li style="float:right"><a class="active" href="/telas/telas_administrador/central.html">Central de Administração</a></li>
+    </ul> 
+</nav>
+  <header>
+    <h1>Contas Cadastradas - Apenas Vizualização<img src="/imagens/icones/capacete.png" alt="capacete"></h1>
+  </header> 
+
+  <table id="userTable"> 
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Usuario ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aqui serão inseridos os dados das contas autenticadas -->
+    </tbody>
+  </table>
+
+  <script>
+    // Obtenha uma referência para o serviço de autenticação do Firebase
+    var auth = firebase.auth();
+
+    // Obtenha o elemento tbody da tabela de usuários
+    var tableBody = document.querySelector("#userTable tbody");
+
+    // Função para buscar e exibir usuários
+    function displayUsers() {
+      // Limpe as linhas existentes da tabela
+      tableBody.innerHTML = "";
+
+      // Busque os usuários
+      auth.onAuthStateChanged(function (user) {
+        if (user) {
+          var row = tableBody.insertRow();
+          var nameCell = row.insertCell(0);
+          var emailCell = row.insertCell(1);
+          var uidCell = row.insertCell(2);
+
+          nameCell.textContent = user.displayName || "N/A";
+          emailCell.textContent = user.email || "N/A";
+          uidCell.textContent = user.uid;
+        } else {
+          console.log("Nenhum usuário autenticado encontrado.");
+        }
+      });
+    }
+
+    // Chame a função displayUsers quando a página carregar
+    displayUsers();
+  </script>
+</body>
+
+</html>

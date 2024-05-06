@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Pedido | Compra</title>
+    <link rel="icon" href="/imagens/icones/carrinho.png">
+    <link rel="stylesheet" href="/estilos/compra.css">
+    
+    <!--SDKs necessarios p pagina-->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <!--conexão-->
+    <script src="/conexao/firebase.js"></script>
+</head>
+<body>
+
+    <header>
+        <h2>Formulário de Compra <img src="/imagens/icones/capacete.png" alt="logo da empresa"></h2>
+    </header>
+    <div class="container">
+        <form id="compra">  
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome"><br>
+    
+            <label for="cep">CEP:</label><br>
+            <input type="text" id="cep" name="cep"><br>
+    
+            <!-- <label for="pagamento">Forma de Pagamento:</label><br>
+            <input type="text" id="pagamento" name="pagamento" required><br> -->
+            <label for="pagamento">Forma de Pagamento:</label>
+            <select id="pagamento" name="pagamento" required>
+                <option value="">Escolha uma opção de pagamento</option>
+                <option value="Credito">Cartão de Crédito</option>
+                <option value="Debito">Cartão de Débito</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Pix">Pix</option>
+                <option value="PicPay">PicPay</option>
+            </select>
+    
+            <label for="telefone">Telefone:</label><br>
+            <input type="tel" id="telefone" name="telefone" required><br>
+    
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+    
+            <label for="complemento">Complemento:</label><br>
+            <textarea id="complemento" name="complemento"></textarea><br>
+    
+            <button type="submit">Enviar Pedido</button>
+        </form>
+        <img class="logo" src="/imagens/site_imagens/compra_de_produto_online.jpg" alt="Imagem da compra">
+    </div>
+    
+    
+    
+    <script>
+        // Referência à coleção de pedidos
+        const pedidosCollection = firebase.firestore().collection('pedidos');
+
+        // Obtém o ID do produto da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const produtoId = urlParams.get('id');
+
+        console.log(produtoId);
+
+        // Verifica se o ID do produto foi fornecido na URL
+        if (!produtoId) {
+            alert('ID do produto não encontrado na URL.');
+        } else {
+            // Define o nome do produto na página
+            const productName = document.getElementById('nome');
+            productName.textContent = `Produto: ${produtoId}`;
+
+            // Evento de envio do formulário
+            const form = document.getElementById('compra');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Obtém os valores do formulário
+                const nome = document.getElementById('nome').value;
+                const cep = document.getElementById('cep').value;
+                const pagamento = document.getElementById('pagamento').value;
+                const telefone = document.getElementById('telefone').value;
+                const email = document.getElementById('email').value;
+                const complemento = document.getElementById('complemento').value;
+
+                // Salva o pedido no Firestore
+                pedidosCollection.add({
+                    produtoId: produtoId,
+                    nome: nome,
+                    cep: cep,
+                    pagamento: pagamento,
+                    telefone: telefone,
+                    email: email,
+                    complemento: complemento
+                })
+                .then(() => {
+                    alert('Pedido enviado com sucesso!');
+                    // Limpa o formulário após o envio
+                    form.reset();
+                })
+                .catch((error) => {
+                    console.error("Erro ao enviar pedido: ", error);
+                    alert('Erro ao enviar pedido. Por favor, tente novamente mais tarde.');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

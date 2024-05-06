@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Colaborador | Online</title>
+    <link rel="icon" href="/imagens/icones/editar.png">
+    <link rel="stylesheet" href="/estilos/estilos_crud/editar/colaborador_produtos.css">
+
+    <!--SDKs necessarios p pagina-->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <!--conexão-->
+    <script src="/conexao/firebase.js"></script>
+</head>
+<body>
+    <header>
+        <h2>Editar Cadastro <img src="/imagens/icones/capacete.png" alt="logo da empresa"></h2>
+    </header>
+
+    <div class="formulario-edicao">
+        <form id="formEdicao">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br>
+
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" required><br>
+
+            <label for="endereco">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="inicio_contratacao">Inicio do contrato:</label>
+            <input type="date" id="inicio_contratacao" name="inicio_contratacao" required><br>
+
+            <label for="fim_contratacao">Fim do contrato:</label>
+            <input type="date" id="fim_contratacao" name="fim_contratacao" required><br>
+
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto" accept="image/*"><br>
+
+            <button class="btn-salvar-editar" type="submit">Salvar Alterações</button>
+        </form>
+    </div> 
+    
+    <script>
+        //Obtenha o ID do registro a ser editado da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const registroId = urlParams.get('id');
+    
+        //Obtenha uma referência para o formulário de edição
+        const formEdicao = document.getElementById('formEdicao');
+    
+        //Preencha o formulário com os dados do registro a ser editado
+        db.collection("colaboradores").doc(registroId).get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                formEdicao.nome.value = data.nome;
+                formEdicao.cpf.value = data.cpf;
+                formEdicao.cidade.value = data.cidade;
+                formEdicao.telefone.value = data.telefone;
+                formEdicao.email.value = data.email;
+                formEdicao.inicio_contratacao.value = data.inicio_contratacao;
+                formEdicao.fim_contratacao.value = data.fim_contratacao;
+                formEdicao.foto.value = data.foto;
+            } else {
+                console.log("Nenhum documento encontrado!");
+            }
+        }).catch((error) => {
+            console.log("Erro ao obter documento:", error);
+        });
+    
+        //Adicione um ouvinte de evento de envio ao formulário
+        formEdicao.addEventListener('submit', (e) => {
+            e.preventDefault(); // Evita que o formulário seja enviado de forma tradicional
+    
+            //Obtenha os dados do formulário
+            const nome = formEdicao.nome.value;
+            const cpf = formEdicao.cpf.value;
+            const cidade = formEdicao.cidade.value;
+            const telefone = formEdicao.telefone.value;
+            const email = formEdicao.email.value;
+            const inicio_contratacao = formEdicao.inicio_contratacao.value;
+            const fim_contratacao = formEdicao.fim_contratacao.value;
+            const foto = formEdicao.foto.value;
+    
+            //Atualize os dados do registro no Firestore
+            db.collection("colaboradores").doc(registroId).update({
+                nome: nome,
+                cpf: cpf,
+                cidade: cidade,
+                telefone: telefone,
+                email: email,
+                inicio_contratacao: inicio_contratacao,
+                fim_contratacao: fim_contratacao,
+                foto: foto
+            })
+            .then(() => {
+                console.log("Colaborador atualizado com sucesso!");
+                //Redirecione o usuário de volta à página de visualização após a atualização
+                window.location.href = "visualizar.html";
+            })
+            .catch((error) => {
+                console.error("Erro ao atualizar colaborador: ", error);
+            });
+        });
+    </script>
+</body>
+</html>

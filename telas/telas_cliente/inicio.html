@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Ferramentas Online</title>
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
+    <link rel="icon" href="/imagens/icones/casa.png">
+    <link rel="stylesheet" href="/estilos/estilo_inicio.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <script src="/scripts/animações.js"></script>
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/telas/telas_cliente/inicio.html">Inicio</a></li>
+            <li><a href="/telas/telas_cliente/vitrine.html">Vitrine</a></li>
+            <li><a onclick="abrirModal('contatoModal')">Contatos</a></li>
+            <li><a href="/telas/telas_cliente/cadastrar.html">Registrar</a></li>
+            <li style="float:right"><a class="active" onclick="abrirModal('ajudaModal')">Ajuda</a></li>
+            <li style="float:right"><a class="active" href="/telas/telas_administrador/central.html">Central de Administração</a></li>
+        </ul> 
+    </nav>
+    <header>
+        <h2>Ferramentas Online <img src="/imagens/icones/capacete.png" alt="capacete"></h2>
+        <h3>Compre ferramentas pela internet e receba na sua casa!</h3>
+    </header> 
+
+    <!-- Modal de Contato -->
+    <div id="contatoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fechaModal('contatoModal')">&times;</span>
+            <p>Contato do autor: (98) 99210-4986</p>
+            <p>Email: bruno.amaro.gb@gmail.com</p>
+        </div>
+    </div>
+
+    <!-- Modal de Ajuda -->
+    <div id="ajudaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fechaModal('ajudaModal')">&times;</span>
+            <p>
+                A J U D A
+                <br>
+                Sincronização de dados JSON em tempo real
+                O Firebase Realtime Database é um banco de dados NoSQL hospedado na nuvem. Com ele, você armazena e sincroniza dados entre os seus usuários em tempo real.
+                <br>
+                NOVO: o Cloud Firestore permite armazenar, sincronizar e consultar dados de apps em escala global.
+                Colaboração fácil entre vários dispositivos
+                Com a sincronização em tempo real, fica mais fácil para os usuários acessarem os dados em qualquer lugar, seja na Web ou em dispositivos móveis. Além disso, eles podem colaborar entre si.
+                <br>
+                Desenvolvimento de apps sem servidor
+                O Realtime Database acompanha os SDKs para Web e dispositivos móveis. Assim, você desenvolve apps sem precisar de servidores. Além disso, você executa códigos de back-end que respondem a eventos acionados pelo seu banco de dados com o Cloud Functions para Firebase.
+                <br>
+                Otimizado para uso off-line
+                Quando os usuários ficam off-line, os SDKs do Realtime Database usam o cache local no dispositivo para aplicar e armazenar alterações. Quando o dispositivo volta a ficar on-line, os dados locais são sincronizados automaticamente.
+                <br>
+                Segurança forte baseada no usuário
+                Com a integração entre o Realtime Database e o Firebase Authentication, os desenvolvedores têm um processo de autenticação simples e intuitivo. Use o nosso modelo de segurança declarativa para permitir acesso com base na identidade do usuário ou com correspondência de padrões nos seus dados.
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="slider-wrapper">
+            
+          <ul class="image-list">
+            <div class="imagem"><img class="image-item" src="/imagens/site_imagens/carrosssel1.jpg" alt="" style="border-radius: 8px; cursor: pointer;"/></div>
+            <div class="imagem"><img class="image-item" src="/imagens/site_imagens/carrossel3.png" alt="" style="border-radius: 8px; cursor: pointer;"/></div>
+            <div class="imagem"><img class="image-item" src="/imagens/site_imagens/carrossel2.jpg" alt="" style="border-radius: 8px; cursor: pointer;"/></div>
+            <div class="imagem"><img class="image-item" src="/imagens/site_imagens/carrossel5.png" alt="" style="border-radius: 8px; cursor: pointer;"/></div>
+            <div class="imagem"><img class="image-item" src="/imagens/site_imagens/carrossel6.jpg" alt="" style="border-radius: 8px; cursor: pointer;"/></div>
+        </ul>
+          
+        </div>
+        <div class="slider-scrollbar">
+          <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <section>
+            <article class="card">
+                <legend>
+                    Este site tem como objetivo apresentar conhecimentos sobre banco de dados na diciplina Sistema de Banco de Dados II do curos de Sistemas de Informação!
+                    <br>
+                    As estapas de desenvolvimento foram elaboradas pelo discente Bruno Augusto Azevedo Souza do curso de Engenharia de Software!
+                    <br>
+                    O sistema possui CSS externo e Javascript interno com uma conexão central para facilitar sua manutenção.
+                </legend>
+            </article>
+        </section>
+    </div>
+
+    <footer>
+        <dl>
+            <dt>Autor</dt>
+            <dd>Bruno Augusto</dd>
+        </dl>
+        <dl>
+            <dt>Contato</dt>
+            <dd>bruno.amaro.gb@gmail.com</dd>
+            <dd>(98) 99210-4986</dd>
+        </dl>
+        <dl>
+            <dt>Diciplina</dt>
+            <dd>Sistemas de Banco de Dados II</dd>
+        </dl>
+        <dl>
+            <dt>Versão</dt>
+            <dd>2.0.0</dd>
+        </dl>
+    </footer>
+
+    <script>
+        // Função para abrir o modal
+        function abrirModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "block";
+        }
+
+        // Função para fechar o modal
+        function fechaModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        // Fecha o modal se o usuário clicar fora dele
+        window.onclick = function(event) {
+            var modals = document.getElementsByClassName('modal');
+            for (var i = 0; i < modals.length; i++) {
+                var modal = modals[i];
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

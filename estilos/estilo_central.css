@@ -1,0 +1,72 @@
+body {
+    background-color: #131313;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+#topo {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 10px;
+  }
+#topo #topo-li {
+    float: left;
+  }
+#topo #topo-li #topo-a {
+    cursor: pointer;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+#topo #topo-li #topo-a:hover {
+    background-color: #fff;
+    border-radius: 4px;
+    color: #131313;
+  }
+header {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 60px;
+}
+h2 {
+    height: 20px;
+}
+img {
+    height: 60px;
+}
+
+.container {
+    display: flex;
+}
+/* nav baixo */
+nav {
+    border-radius: 5px;
+    width: 25%; /* Definindo a largura como 25% */
+    background-color: #a7a599;
+    cursor: pointer;
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    padding: 10px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #131313;
+}
+ul li:hover {
+    background-color: #65645f;
+}
+.logo {
+    display: block;
+    margin: auto;
+    border-radius: 220px;
+}
